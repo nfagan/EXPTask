@@ -32,7 +32,7 @@ namespace EXP {
         template<typename T, typename... A>
         void AddAbortCondition(A... args)
         {
-            abort_conditions.push_back(T(args...));
+            abort_conditions.push_back(new T(args...));
         };
         
         virtual void SetParent(EXP::Task *parent);
@@ -42,7 +42,7 @@ namespace EXP {
         State *next;
         Task *parent;
         EXP::Entity **entities;
-        std::vector<EXP::abort_conditions::general> abort_conditions;
+        std::vector<EXP::abort_conditions::general*> abort_conditions;
         
         virtual void entry() {};
         virtual void loop() {};

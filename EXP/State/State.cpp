@@ -33,7 +33,7 @@ bool EXP::State::should_exit()
 {
     for (unsigned i = 0; i < abort_conditions.size(); ++i)
     {
-        if (abort_conditions[i].should_abort())
+        if (abort_conditions[i]->should_abort())
         {
             return true;
         }
