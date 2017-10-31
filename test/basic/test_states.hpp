@@ -25,7 +25,7 @@ namespace EXP {
         
         GLContextManager *gl_manager = nullptr;
         ResourceManager *resource_manager = nullptr;
-        Window *window = nullptr;
+        std::vector<Window*> windows;
         RenderTarget *render_target = nullptr;
         Renderer *renderer = nullptr;
         InputKeyboard *keyboard = nullptr;
@@ -33,6 +33,7 @@ namespace EXP {
         MaterialSolid2D *mat = nullptr;
         glm::vec2 rect_pos = Positions2D::CENTER;
         float step_amount = 0.005f;
+        int iterations = 0;
         
         void task_loop(EXP::State* input)
         {
@@ -47,7 +48,6 @@ namespace EXP {
             }
             
             rectangle->SetPosition(rect_pos);
-            renderer->Draw();
             gl_manager->PollEvents();
         }
         
@@ -55,18 +55,22 @@ namespace EXP {
         {
             mat->SetAlbedo(Colors::RED);
             renderer->Queue(rectangle);
+            renderer->Draw();
         }
         
         void on_loop2(EXP::State *input)
         {
             mat->SetAlbedo(Colors::GREEN);
+            rectangle->SetDimensions(50.0f, 50.0f);
             renderer->Queue(rectangle);
+            renderer->Draw();
         }
         
         void on_loop3(State *input)
         {
             mat->SetAlbedo(Colors::GREY_50);
             renderer->Queue(rectangle);
+            renderer->Draw();
             if (keyboard->KeyDown(GLFW_KEY_SPACE))
             {
                 input->Next(input->GetStateById(STATE2));
@@ -81,6 +85,7 @@ namespace EXP {
         
         void on_entry2(State *state)
         {
+            rect_pos = Positions2D::LEFT_CENTER;
             std::cout << "Entered state 2!" << std::endl;
         }
         
@@ -97,6 +102,8 @@ namespace EXP {
         
         void on_exit2(State *state)
         {
+            rect_pos = Positions2D::CENTER;
+            rectangle->SetDimensions(100.0f, 200.0f);
             std::cout << "Exited state 2!" << std::endl;
             state->Next(state->GetStateById(STATE3));
         }
@@ -113,12 +120,14 @@ namespace EXP {
             
             gl_manager = new GLContextManager();
             resource_manager = new ResourceManager();
-            window = gl_manager->OpenWindow(0, nullptr);
-            render_target = gl_manager->CreateRenderTarget(window);
+            windows.push_back(gl_manager->OpenWindow(0, 400, 400, nullptr));
+            render_target = gl_manager->CreateRenderTarget(windows);
             renderer = new Renderer(render_target);
             mat = resource_manager->CreateMaterial<EXP::MaterialSolid2D>();
             rectangle = resource_manager->CreateModel<EXP::Rectangle>(render_target);
             keyboard = new InputKeyboard(render_target);
+            
+            renderer->SetClearColor(Colors::WHITE);
             
             rectangle->SetDimensions(100.0f, 200.0f);
             rectangle->SetPosition(glm::vec2(0.5f, 0.5f));
@@ -131,16 +140,16 @@ namespace EXP {
             time->Start();
 
             Task *task = new Task(time);
-            State *state = task->CreateState(STATE1);
+            State *state1 = task->CreateState(STATE1);
             State *state2 = task->CreateState(STATE2);
             State *state3 = task->CreateState(STATE3);
             
-            state->AddExitCondition<exit_conditions::time_exceeded>();
+            state1->AddExitCondition<exit_conditions::time_exceeded>();
             
-            state->Entry(on_entry);
-            state->Loop(on_loop);
-            state->Exit(on_exit);
-            state->TimeIn(Time::duration_ms(1000));
+            state1->Entry(on_entry);
+            state1->Loop(on_loop);
+            state1->Exit(on_exit);
+            state1->TimeIn(Time::duration_ms(200));
             
             state2->TimeIn(Time::duration_ms(500));
             state2->Entry(on_entry2);
@@ -156,12 +165,12 @@ namespace EXP {
             
             task->AddExitCondition<exit_conditions::key_pressed>(keyboard, GLFW_KEY_ESCAPE);
             task->Loop(task_loop);
-            task->Next(state);
+            task->Next(state1);
             
             double start = time->Now();
             task->Run();
             double stop = time->Now();
-            std::cout << (stop - start) << std::endl;
+            std::cout << "\nEllapsed time: " << (stop - start) << "s\n" << std::endl;
             std::cout << task->ExitReason() << std::endl;
             
             delete gl_manager;
