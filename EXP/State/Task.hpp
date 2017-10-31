@@ -16,14 +16,23 @@
 namespace EXP {
     class Task : public EXP::State
     {
+    
+    friend class State;
+    
     public:
-        Task();
-        ~Task();
+        Task(EXP::Time::Keeper *keeper);
+        virtual ~Task();
         
-        void AddState(EXP::State* state);
+        virtual void Run(void);
+        EXP::State* CreateState(unsigned id);
         EXP::State* GetStateById(unsigned id);
+        
     protected:
+        EXP::State *previous = nullptr;
         std::unordered_map<unsigned, EXP::State*> states;
+        unsigned n_states;
+        
+        virtual void loop();
     };
 }
 

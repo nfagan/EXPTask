@@ -8,6 +8,7 @@
 
 #ifndef Timings_h
 #define Timings_h
+#include <limits>
 
 namespace EXP {
     namespace Time {
@@ -16,6 +17,8 @@ namespace EXP {
         typedef std::chrono::duration<double, std::ratio<1, 1000>> duration_ms;
         typedef std::chrono::milliseconds ms;
         typedef std::chrono::seconds secs;
+        
+        static const duration_s DURATION_INFINITE = duration_s(std::numeric_limits<double>::max());
     }
 }
 

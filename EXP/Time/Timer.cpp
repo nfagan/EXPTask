@@ -11,21 +11,43 @@
 #include <math.h>
 #include <assert.h>
 
+EXP::Time::Timer::Timer(EXP::Time::Keeper *time)
+{
+    this->time = time;
+    this->duration = DURATION_INFINITE;
+    init_time();
+}
+
 EXP::Time::Timer::Timer(EXP::Time::Keeper *time, EXP::Time::duration_ms duration)
 {
     this->time = time;
     this->duration = duration;
-    start = time->Now();
-    assert(!isnan(start));
+    init_time();
 }
 
 EXP::Time::Timer::~Timer() {};
 
-bool EXP::Time::Timer::Ellapsed()
+void EXP::Time::Timer::init_time()
 {
-    double ellapsed_seconds = time->Now() - start;
+    start = time->Now();
+    assert(!isnan(start));
+}
+
+void EXP::Time::Timer::SetDuration(EXP::Time::duration_ms duration)
+{
+    this->duration = duration;
+}
+
+bool EXP::Time::Timer::Ellapsed() const
+{
+    double ellapsed_seconds = EllapsedTime();
     EXP::Time::duration_s duration_s = EXP::Time::duration_s(duration);
     return ellapsed_seconds >= duration_s.count();
+}
+
+double EXP::Time::Timer::EllapsedTime() const
+{
+    return time->Now() - start;
 }
 
 void EXP::Time::Timer::Reset()

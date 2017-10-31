@@ -21,6 +21,7 @@
 #include <EXP/Time/Timer.hpp>
 
 #include <EXP/State/State.hpp>
-#include <EXP/State/abort_conditions.hpp>
+#include <EXP/State/Task.hpp>
+#include <EXP/State/exit_conditions.hpp>
 
 #endif /* EXP_h */

@@ -16,6 +16,7 @@ EXP::Time::Keeper::Keeper()
 }
 
 EXP::Time::Keeper::~Keeper() {
+    time_thread->detach();
     delete time_thread;
 }
 

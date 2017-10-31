@@ -7,21 +7,48 @@
 //
 
 #include "Task.hpp"
+#include <iostream>
 
-EXP::Task::Task()
+EXP::Task::Task(EXP::Time::Keeper *time_keeper) : EXP::State(time_keeper)
 {
-    this->AddAbortCondition<EXP::abort_conditions::null_state>(this->next);
+    n_states = 0;
+    this->AddExitCondition<EXP::exit_conditions::null_next>();
 }
 
 EXP::Task::~Task()
 {
-    
+    for (auto it = states.begin(); it != states.end(); ++it)
+    {
+        delete it->second;
+    }
 }
 
-void EXP::Task::AddState(EXP::State *state)
+void EXP::Task::Run()
 {
-    state->SetParent(this);
-    states[state->GetId()] = state;
+    while (!should_exit())
+    {
+        EXP::State *current = next;
+        current->run();
+        previous = current;
+        next = current->GetNext();
+    }
+}
+
+void EXP::Task::loop()
+{
+    on_loop(this);
+}
+
+EXP::State* EXP::Task::CreateState(unsigned id)
+{
+    EXP::State *state = new State(time_keeper);
+    auto it = states.find(id);
+    assert(it == states.end());
+    state->set_id(id);
+    state->set_parent(this);
+    states[id] = state;
+    n_states++;
+    return state;
 }
 
 EXP::State* EXP::Task::GetStateById(unsigned id)

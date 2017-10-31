@@ -22,10 +22,11 @@
 		01CF14541FA50FBD00512E1A /* static_assert__array_contains.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01CF14521FA50FBD00512E1A /* static_assert__array_contains.cpp */; };
 		01CF14571FA5225800512E1A /* test_maps.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 01CF14561FA5225800512E1A /* test_maps.hpp */; };
 		01D2DEFA1FA66CA1002AE43D /* Timings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D2DEF91FA66C9E002AE43D /* Timings.hpp */; };
-		01D2DEFE1FA6727C002AE43D /* abort_conditions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D2DEFC1FA6727C002AE43D /* abort_conditions.hpp */; };
+		01D2DEFE1FA6727C002AE43D /* exit_conditions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D2DEFC1FA6727C002AE43D /* exit_conditions.hpp */; };
 		01D2DF001FA67568002AE43D /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D2DEFF1FA67568002AE43D /* State.cpp */; };
 		01D2DF041FA68123002AE43D /* Task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D2DF021FA68123002AE43D /* Task.hpp */; };
 		01D2DF061FA6826A002AE43D /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D2DF051FA6826A002AE43D /* Task.cpp */; };
+		01D2DF081FA6B24B002AE43D /* test_states.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D2DF071FA6B249002AE43D /* test_states.hpp */; };
 		01D540B41FA618F600380DE3 /* BoundsRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D540B21FA618F600380DE3 /* BoundsRectangle.cpp */; };
 		01D540B51FA618F600380DE3 /* BoundsRectangle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D540B31FA618F600380DE3 /* BoundsRectangle.hpp */; };
 		01D540B71FA6206700380DE3 /* threading2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01CE37BA1FA54D7000207011 /* threading2.hpp */; };
@@ -35,6 +36,7 @@
 		01D540C51FA6356A00380DE3 /* Keeper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D540C31FA6356A00380DE3 /* Keeper.hpp */; };
 		01D540C81FA63C5E00380DE3 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D540C61FA63C5E00380DE3 /* Timer.cpp */; };
 		01D540C91FA63C5E00380DE3 /* Timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01D540C71FA63C5E00380DE3 /* Timer.hpp */; };
+		01DAD9801FA808CA00EF8B43 /* exit_conditions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01DAD97F1FA808CA00EF8B43 /* exit_conditions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,10 +69,11 @@
 		01CF14561FA5225800512E1A /* test_maps.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_maps.hpp; sourceTree = "<group>"; };
 		01CF14591FA52FB200512E1A /* threading1.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = threading1.hpp; sourceTree = "<group>"; };
 		01D2DEF91FA66C9E002AE43D /* Timings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Timings.hpp; sourceTree = "<group>"; };
-		01D2DEFC1FA6727C002AE43D /* abort_conditions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = abort_conditions.hpp; sourceTree = "<group>"; };
+		01D2DEFC1FA6727C002AE43D /* exit_conditions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = exit_conditions.hpp; sourceTree = "<group>"; };
 		01D2DEFF1FA67568002AE43D /* State.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		01D2DF021FA68123002AE43D /* Task.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Task.hpp; sourceTree = "<group>"; };
 		01D2DF051FA6826A002AE43D /* Task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Task.cpp; sourceTree = "<group>"; };
+		01D2DF071FA6B249002AE43D /* test_states.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_states.hpp; sourceTree = "<group>"; };
 		01D540B21FA618F600380DE3 /* BoundsRectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BoundsRectangle.cpp; sourceTree = "<group>"; };
 		01D540B31FA618F600380DE3 /* BoundsRectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BoundsRectangle.hpp; sourceTree = "<group>"; };
 		01D540BD1FA620F600380DE3 /* test_bounds.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_bounds.hpp; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		01D540C61FA63C5E00380DE3 /* Timer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
 		01D540C71FA63C5E00380DE3 /* Timer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
 		01D540CA1FA63D3700380DE3 /* test_time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_time.hpp; sourceTree = "<group>"; };
+		01DAD97F1FA808CA00EF8B43 /* exit_conditions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = exit_conditions.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +194,7 @@
 				01CE37BA1FA54D7000207011 /* threading2.hpp */,
 				01D540BD1FA620F600380DE3 /* test_bounds.hpp */,
 				01D540CA1FA63D3700380DE3 /* test_time.hpp */,
+				01D2DF071FA6B249002AE43D /* test_states.hpp */,
 			);
 			path = basic;
 			sourceTree = "<group>";
@@ -199,7 +204,8 @@
 			children = (
 				01C9DB741FA4EB1B009928B1 /* State.hpp */,
 				01D2DEFF1FA67568002AE43D /* State.cpp */,
-				01D2DEFC1FA6727C002AE43D /* abort_conditions.hpp */,
+				01D2DEFC1FA6727C002AE43D /* exit_conditions.hpp */,
+				01DAD97F1FA808CA00EF8B43 /* exit_conditions.cpp */,
 				01D2DF051FA6826A002AE43D /* Task.cpp */,
 				01D2DF021FA68123002AE43D /* Task.hpp */,
 			);
@@ -242,13 +248,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D2DF081FA6B24B002AE43D /* test_states.hpp in Headers */,
 				01D540C91FA63C5E00380DE3 /* Timer.hpp in Headers */,
 				01D540B81FA6207000380DE3 /* threading1.hpp in Headers */,
 				01C9DB371FA4CD6D009928B1 /* BoundsXY.hpp in Headers */,
 				01C9DB331FA4CD1E009928B1 /* TargetXY.hpp in Headers */,
 				01C9DB761FA4EB1B009928B1 /* State.hpp in Headers */,
 				01D540B51FA618F600380DE3 /* BoundsRectangle.hpp in Headers */,
-				01D2DEFE1FA6727C002AE43D /* abort_conditions.hpp in Headers */,
+				01D2DEFE1FA6727C002AE43D /* exit_conditions.hpp in Headers */,
 				01D540B71FA6206700380DE3 /* threading2.hpp in Headers */,
 				01C9DB431FA4DF0B009928B1 /* EXP.hpp in Headers */,
 				01D2DF041FA68123002AE43D /* Task.hpp in Headers */,
@@ -355,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01DAD9801FA808CA00EF8B43 /* exit_conditions.cpp in Sources */,
 				01C9DB321FA4CD1E009928B1 /* TargetXY.cpp in Sources */,
 				01CF14571FA5225800512E1A /* test_maps.hpp in Sources */,
 				01C9DB3F1FA4DD0F009928B1 /* Entity.cpp in Sources */,
