@@ -11,8 +11,6 @@
 
 #include <EXPGL.hpp>
 
-#include <EXP/Entity/Entity.hpp>
-
 #include <EXP/Tracking/TargetXY.hpp>
 #include <EXP/Tracking/BoundsXY.hpp>
 #include <EXP/Tracking/BoundsRectangle.hpp>

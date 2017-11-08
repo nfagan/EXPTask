@@ -15,8 +15,6 @@
 		01C9DB321FA4CD1E009928B1 /* TargetXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C9DB301FA4CD1E009928B1 /* TargetXY.cpp */; };
 		01C9DB331FA4CD1E009928B1 /* TargetXY.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB311FA4CD1E009928B1 /* TargetXY.hpp */; };
 		01C9DB371FA4CD6D009928B1 /* BoundsXY.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB351FA4CD6D009928B1 /* BoundsXY.hpp */; };
-		01C9DB3F1FA4DD0F009928B1 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C9DB3D1FA4DD0F009928B1 /* Entity.cpp */; };
-		01C9DB401FA4DD0F009928B1 /* Entity.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB3E1FA4DD0F009928B1 /* Entity.hpp */; };
 		01C9DB431FA4DF0B009928B1 /* EXP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB421FA4DF0B009928B1 /* EXP.hpp */; };
 		01C9DB491FA4DF85009928B1 /* basic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB471FA4DF85009928B1 /* basic.hpp */; };
 		01C9DB581FA4E0A6009928B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C9DB4A1FA4DF97009928B1 /* main.cpp */; };
@@ -66,8 +64,6 @@
 		01C9DB301FA4CD1E009928B1 /* TargetXY.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TargetXY.cpp; sourceTree = "<group>"; };
 		01C9DB311FA4CD1E009928B1 /* TargetXY.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TargetXY.hpp; sourceTree = "<group>"; };
 		01C9DB351FA4CD6D009928B1 /* BoundsXY.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BoundsXY.hpp; sourceTree = "<group>"; };
-		01C9DB3D1FA4DD0F009928B1 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
-		01C9DB3E1FA4DD0F009928B1 /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
 		01C9DB421FA4DF0B009928B1 /* EXP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EXP.hpp; sourceTree = "<group>"; };
 		01C9DB471FA4DF85009928B1 /* basic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = basic.hpp; sourceTree = "<group>"; };
 		01C9DB4A1FA4DF97009928B1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -146,7 +142,6 @@
 				01D540C11FA6356100380DE3 /* Time */,
 				01CF14501FA50F7000512E1A /* Util */,
 				01C9DB721FA4EB10009928B1 /* State */,
-				01C9DB3C1FA4DD03009928B1 /* Entity */,
 				01C9DB2B1FA4CB2C009928B1 /* Tracking */,
 			);
 			path = EXP;
@@ -172,15 +167,6 @@
 				01D540B31FA618F600380DE3 /* BoundsRectangle.hpp */,
 			);
 			path = Tracking;
-			sourceTree = "<group>";
-		};
-		01C9DB3C1FA4DD03009928B1 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				01C9DB3D1FA4DD0F009928B1 /* Entity.cpp */,
-				01C9DB3E1FA4DD0F009928B1 /* Entity.hpp */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		01C9DB411FA4DEF4009928B1 /* include */ = {
@@ -276,7 +262,6 @@
 				01EA09D81FABF62E003B32FB /* test_threaded_states2.hpp in Headers */,
 				01D2DEFA1FA66CA1002AE43D /* Timings.hpp in Headers */,
 				01D540C51FA6356A00380DE3 /* Keeper.hpp in Headers */,
-				01C9DB401FA4DD0F009928B1 /* Entity.hpp in Headers */,
 				01C9DB491FA4DF85009928B1 /* basic.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,7 +364,6 @@
 			files = (
 				01DAD9801FA808CA00EF8B43 /* exit_conditions.cpp in Sources */,
 				01C9DB321FA4CD1E009928B1 /* TargetXY.cpp in Sources */,
-				01C9DB3F1FA4DD0F009928B1 /* Entity.cpp in Sources */,
 				01DAAD001FAE99EB00C0A2E3 /* StatePrimitive.cpp in Sources */,
 				01D540C81FA63C5E00380DE3 /* Timer.cpp in Sources */,
 				01D2DF061FA6826A002AE43D /* Task.cpp in Sources */,

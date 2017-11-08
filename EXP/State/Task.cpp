@@ -13,7 +13,7 @@
 EXP::Task::Task(EXP::Time::Keeper *time_keeper) : EXP::StatePrimitive(time_keeper)
 {
     n_states = 0;
-    this->AddExitCondition<EXP::exit_conditions::null_next>();
+    AddExitCondition<EXP::exit_conditions::null_next>();
 }
 
 EXP::Task::~Task()
