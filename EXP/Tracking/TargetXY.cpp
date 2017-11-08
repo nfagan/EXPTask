@@ -18,7 +18,7 @@ EXP::TargetXY::~TargetXY() {};
 
 bool EXP::TargetXY::InBounds() const
 {
-    return this->bounds->InBounds(input_source->GetCoordinates());
+    return bounds->InBounds(input_source->GetCoordinates());
 }
 
 EXP::BoundsXY* EXP::TargetXY::GetBounds() const

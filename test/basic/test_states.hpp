@@ -23,17 +23,26 @@ namespace EXP {
             STATE3
         } states;
         
+        Time::Keeper *time = new Time::Keeper();
         GLContextManager *gl_manager = nullptr;
         ResourceManager *resource_manager = nullptr;
         std::vector<Window*> windows;
         RenderTarget *render_target = nullptr;
         Renderer *renderer = nullptr;
         InputKeyboard *keyboard = nullptr;
+        Shader2D *shader = nullptr;
         Rectangle *rectangle = nullptr;
         MaterialSolid2D *mat = nullptr;
         glm::vec2 rect_pos = Positions2D::CENTER;
         float step_amount = 0.005f;
-        int iterations = 0;
+        unsigned long iterations = 0;
+        double avg = 0.0;
+        double current = 0.0;
+        double last = 0.0;
+        double delta = 0.0;
+        double min_value = std::numeric_limits<double>::max();
+        double max_value = std::numeric_limits<double>::min();
+        bool do_draw = true;
         
         void task_loop(EXP::State* input)
         {
@@ -54,23 +63,32 @@ namespace EXP {
         void on_loop(EXP::State *input)
         {
             mat->SetAlbedo(Colors::RED);
-            renderer->Queue(rectangle);
-            renderer->Draw();
+            if (do_draw)
+            {
+                renderer->Queue(rectangle);
+                renderer->Draw();
+            }
         }
         
         void on_loop2(EXP::State *input)
         {
             mat->SetAlbedo(Colors::GREEN);
             rectangle->SetDimensions(50.0f, 50.0f);
-            renderer->Queue(rectangle);
-            renderer->Draw();
+            if (do_draw)
+            {
+                renderer->Queue(rectangle);
+                renderer->Draw();
+            }
         }
         
         void on_loop3(State *input)
         {
             mat->SetAlbedo(Colors::GREY_50);
-            renderer->Queue(rectangle);
-            renderer->Draw();
+            if (do_draw)
+            {
+                renderer->Queue(rectangle);
+                renderer->Draw();
+            }
             if (keyboard->KeyDown(GLFW_KEY_SPACE))
             {
                 input->Next(input->GetStateById(STATE2));
@@ -80,6 +98,16 @@ namespace EXP {
         
         void on_entry(State *state)
         {
+            current = time->Now();
+            if (iterations > 0)
+            {
+                delta = current - last;
+                avg = (avg * ((double)iterations-1.0) + delta) / ((double)iterations);
+                if (delta < min_value) min_value = delta;
+                if (delta > max_value) max_value = delta;
+            }
+            last = current;
+            iterations++;
             std::cout << "Entered state 1!" << std::endl;
         }
         
@@ -120,15 +148,17 @@ namespace EXP {
             
             gl_manager = new GLContextManager();
             resource_manager = new ResourceManager();
-            windows.push_back(gl_manager->OpenWindow(0, 400, 400, nullptr));
+            windows.push_back(gl_manager->OpenWindow(0, nullptr));
             render_target = gl_manager->CreateRenderTarget(windows);
             renderer = new Renderer(render_target);
+            shader = new Shader2D();
             mat = resource_manager->CreateMaterial<EXP::MaterialSolid2D>();
             rectangle = resource_manager->CreateModel<EXP::Rectangle>(render_target);
             keyboard = new InputKeyboard(render_target);
             
             renderer->SetClearColor(Colors::WHITE);
             
+            rectangle->SetShader(shader);
             rectangle->SetDimensions(100.0f, 200.0f);
             rectangle->SetPosition(glm::vec2(0.5f, 0.5f));
             rectangle->SetUnits(Model::MIXED);
@@ -136,7 +166,6 @@ namespace EXP {
             
             render_target->SetWindowOffsets(RenderTarget::HORIZONTAL);
             
-            Time::Keeper *time = new Time::Keeper();
             time->Start();
 
             Task *task = new Task(time);
@@ -149,7 +178,7 @@ namespace EXP {
             state1->Entry(on_entry);
             state1->Loop(on_loop);
             state1->Exit(on_exit);
-            state1->TimeIn(Time::duration_ms(200));
+            state1->TimeIn(Time::duration_ms(250));
             
             state2->TimeIn(Time::duration_ms(500));
             state2->Entry(on_entry2);
@@ -172,6 +201,9 @@ namespace EXP {
             double stop = time->Now();
             std::cout << "\nEllapsed time: " << (stop - start) << "s\n" << std::endl;
             std::cout << task->ExitReason() << std::endl;
+            std::cout << "\nAverage trial-time: " << avg << "\n";
+            std::cout << "\nMax trial-time: " << max_value << "\n";
+            std::cout << "\nMin trial-time: " << min_value << std::endl;
             
             delete gl_manager;
             delete keyboard;

@@ -18,10 +18,8 @@ namespace EXP {
     public:
         BoundsXY(void) {};
         virtual ~BoundsXY(void) {};
-        virtual bool InBounds(double x, double y) { return false; };
-        virtual bool InBounds(glm::vec2 coords) { return false; };
-//        virtual void MoveTo(double x, double y);
-//        virtual void SetPadding(double x, double y);
+        virtual bool InBounds(double x, double y) const { return false; };
+        virtual bool InBounds(glm::vec2 coords) const { return false; };
     };
 }
 

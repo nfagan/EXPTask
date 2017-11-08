@@ -20,14 +20,10 @@ namespace EXP {
         BoundsRectangle(EXP::Rect<float> bounds);
         ~BoundsRectangle();
         
-        bool InBounds(double x, double y);
-        bool InBounds(glm::vec2 coordinates);
+        bool InBounds(double x, double y) const;
+        bool InBounds(glm::vec2 coordinates) const;
         
-        template<typename T>
-        void SetBounds(EXP::Rect<T> bounds)
-        {
-            this->bounds = static_cast<EXP::Rect<float>>(bounds);
-        }
+        void SetBounds(EXP::Rect<float> bounds);
     protected:
         EXP::Rect<float> bounds;
         glm::vec2 padding;

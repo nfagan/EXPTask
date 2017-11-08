@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <functional>
 #include "../Time/Timer.hpp"
 #include <EXPGL/Input/InputKeyboard.hpp>
 
@@ -20,7 +21,7 @@ namespace EXP {
     //
     //
     
-    class State;
+    class StatePrimitive;
     
 namespace exit_conditions {
     
@@ -34,12 +35,25 @@ namespace exit_conditions {
         general() {};
         virtual ~general() {};
         
-        virtual bool should_abort(EXP::State *state)
+        virtual bool should_abort(EXP::StatePrimitive *state)
         {
             return true;
         }
         
         std::string reason;
+    };
+    
+    //
+    //  custom
+    //
+    
+    class custom : public general
+    {
+    public:
+        custom(std::function<bool (EXP::StatePrimitive*)> abort_func, std::string reason);
+        bool should_abort(EXP::StatePrimitive *state);
+    private:
+        std::function<bool (EXP::StatePrimitive*)> abort_func;
     };
     
     //
@@ -50,7 +64,7 @@ namespace exit_conditions {
     {
     public:
         now();
-        bool should_abort(EXP::State *state);
+        bool should_abort(EXP::StatePrimitive *state);
     };
     
     //
@@ -61,7 +75,7 @@ namespace exit_conditions {
     {
     public:
         null_next();
-        bool should_abort(EXP::State *state);
+        bool should_abort(EXP::StatePrimitive *state);
     };
     
     //
@@ -73,7 +87,7 @@ namespace exit_conditions {
     public:
         time_exceeded(EXP::Time::Timer *timer);
         time_exceeded(void);
-        bool should_abort(EXP::State *state);
+        bool should_abort(EXP::StatePrimitive *state);
     private:
         EXP::Time::Timer *timer = nullptr;
     };
@@ -86,7 +100,7 @@ namespace exit_conditions {
     {
     public:
         key_pressed(EXP::InputKeyboard *keyboard, int abort_key);
-        bool should_abort(EXP::State *state);
+        bool should_abort(EXP::StatePrimitive *state);
     private:
         EXP::InputKeyboard *keyboard = nullptr;
         int abort_key;

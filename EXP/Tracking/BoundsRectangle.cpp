@@ -16,16 +16,21 @@ EXP::BoundsRectangle::BoundsRectangle(EXP::Rect<float> bounds) : EXP::BoundsXY()
 
 EXP::BoundsRectangle::~BoundsRectangle() {}
 
-bool EXP::BoundsRectangle::InBounds(double x, double y)
+void EXP::BoundsRectangle::SetBounds(EXP::Rect<float> bounds)
+{
+    this->bounds = bounds;
+}
+
+bool EXP::BoundsRectangle::InBounds(double x, double y) const
 {
     EXP::Rect<float> adjusted_bounds;
     bounds.clone_into(&adjusted_bounds);
-    adjusted_bounds.expand(padding.x, padding.y);
+    adjusted_bounds.expand(padding.x, padding.y);    
     return x > adjusted_bounds[0] && x < adjusted_bounds[2] &&
         y > adjusted_bounds[1] && y < adjusted_bounds[3];
 }
 
-bool EXP::BoundsRectangle::InBounds(glm::vec2 coordinates)
+bool EXP::BoundsRectangle::InBounds(glm::vec2 coordinates) const
 {
     return InBounds(coordinates.x, coordinates.y);
 }

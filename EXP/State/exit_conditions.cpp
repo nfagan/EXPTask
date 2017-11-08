@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include "exit_conditions.hpp"
-#include "State.hpp"
+#include "StatePrimitive.hpp"
 #include <iostream>
 
 namespace EXP {
@@ -19,10 +19,24 @@ namespace EXP {
         //
         
         now::now() : general::general() {};
-        bool now::should_abort(EXP::State *state)
+        bool now::should_abort(EXP::StatePrimitive *state)
         {
             reason = "State exit condition met: user manually invoked abort.";
             return true;
+        }
+        
+        //
+        //  custom
+        //
+        
+        custom::custom(std::function<bool (EXP::StatePrimitive*)> abort_func, std::string reason) : general::general()
+        {
+            this->abort_func = abort_func;
+            this->reason = reason;
+        }
+        bool custom::should_abort(EXP::StatePrimitive *state)
+        {
+            return abort_func(state);
         }
         
         //
@@ -30,7 +44,7 @@ namespace EXP {
         //
         
         null_next::null_next() : general::general() {};
-        bool null_next::should_abort(EXP::State *state)
+        bool null_next::should_abort(EXP::StatePrimitive *state)
         {
             if (!state->GetNext())
             {
@@ -49,7 +63,7 @@ namespace EXP {
             this->timer = timer;
         }
         time_exceeded::time_exceeded(void) : general::general() {};
-        bool time_exceeded::should_abort(EXP::State *state)
+        bool time_exceeded::should_abort(EXP::StatePrimitive *state)
         {
             if (!timer)
             {
@@ -73,7 +87,7 @@ namespace EXP {
             this->abort_key = abort_key;
         }
         
-        bool key_pressed::should_abort(EXP::State *state)
+        bool key_pressed::should_abort(EXP::StatePrimitive *state)
         {
             if (keyboard->KeyDown(abort_key))
             {
