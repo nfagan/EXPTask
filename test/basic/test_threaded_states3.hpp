@@ -101,6 +101,7 @@ namespace EXP {
                 avg = (avg * ((double)iterations-1.0) + delta) / ((double)iterations);
                 if (delta < min_value) min_value = delta;
                 if (delta > max_value) max_value = delta;
+				std::cout << delta * 1000 << "(ms)" << std::endl;
             }
             last = current;
             iterations++;
@@ -256,7 +257,6 @@ namespace EXP {
             render_looper = new RenderLoop(renderer);
             Texture2D *tex = rsrc->GetTexture<Texture2D>("/Users/Nick/Desktop/eg1.png");
             MaterialSolid2D *mat = rsrc->Create<MaterialSolid2D>(render_target);
-            MaterialTexture2D *mat_tex = rsrc->Create<MaterialTexture2D>(render_target, tex);
             Rectangle *rectangle = rsrc->Create<Rectangle>(render_target);
             Shader *shader = new Shader2D();
             keyboard = new InputKeyboard(render_target);
@@ -270,7 +270,6 @@ namespace EXP {
             rectangle->SetDimensions(100.0f, 100.0f);
             
             rsrc->SetName(mat, IDS::MAT1);
-            rsrc->SetName(mat_tex, IDS::TEX1);
             rsrc->SetName(rectangle, IDS::MAIN_RECT);
             
             renderer->SetClearColor(Colors::BLACK);
