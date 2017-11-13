@@ -11,6 +11,7 @@
 
 #include <EXP.hpp>
 #include <EXPGL.hpp>
+#include <EXPUtil/data/commitable.hpp>
 #include <iostream>
 #include <thread>
 
@@ -229,8 +230,10 @@ namespace EXP {
                  if (keyboard->KeyDown(GLFW_KEY_SPACE))
                  {
                      render_looper->OnceDrawReady([&] (EXP::RenderLoop* looper) {
-                         MaterialSolid2D *mat = rsrc->Get<MaterialSolid2D>(IDS::MAT1);
-                         mat->SetAlbedo(Colors::GREY_50);
+                         MaterialTexture2D *mat = rsrc->Get<MaterialTexture2D>(IDS::TEX1);
+                         Rectangle *rect = rsrc->Get<Rectangle>(IDS::MAIN_RECT);
+                         rect->SetMaterial(mat);
+//                         mat->SetAlbedo(Colors::GREY_50);
                      });
                  }
             });
@@ -255,8 +258,9 @@ namespace EXP {
             render_target = gl_manager->CreateRenderTarget(windows);
             Renderer *renderer = new Renderer(render_target);
             render_looper = new RenderLoop(renderer);
-            Texture2D *tex = rsrc->GetTexture<Texture2D>("/Users/Nick/Desktop/eg1.png");
+            Texture *tex = rsrc->GetTexture<Texture>("/Users/Nick/Desktop/eg1.png");
             MaterialSolid2D *mat = rsrc->Create<MaterialSolid2D>(render_target);
+            MaterialTexture2D *mat_tex = rsrc->Create<MaterialTexture2D>(render_target, tex);
             Rectangle *rectangle = rsrc->Create<Rectangle>(render_target);
             Shader *shader = new Shader2D();
             keyboard = new InputKeyboard(render_target);
@@ -265,12 +269,16 @@ namespace EXP {
             bounds_rectangle = new BoundsRectangle(rectangle->GetPixelVertices(render_target->GetFullRect()));
             target1 = new TargetXY(bounds_rectangle, mouse);
             
+            glm::vec2 aspect = glm::vec2(1.0f, (float)tex->GetWidth() / (float)tex->GetHeight());
+            
             rectangle->SetShader(shader);
             rectangle->SetUnits(Model::MIXED);
-            rectangle->SetDimensions(100.0f, 100.0f);
+            rectangle->SetScale(aspect * 5.0f);
+            rectangle->SetMaterial(mat_tex);
             
             rsrc->SetName(mat, IDS::MAT1);
             rsrc->SetName(rectangle, IDS::MAIN_RECT);
+            rsrc->SetName(mat_tex, IDS::TEX1);
             
             renderer->SetClearColor(Colors::BLACK);
             render_target->SetWindowOffsets(RenderTarget::HORIZONTAL);
@@ -279,7 +287,7 @@ namespace EXP {
             {
                 Rectangle *new_rect = rsrc->Create<Rectangle>(render_target);
                 new_rect->MakeLike(rectangle);
-                new_rect->SetDimensions(10.0f, 10.0f);
+                new_rect->SetScale(glm::vec2(10.0f, 5.0f));
                 float x = (float) rand()/RAND_MAX;
                 float y = (float) rand()/RAND_MAX;
                 new_rect->SetPosition(glm::vec2(x, y));

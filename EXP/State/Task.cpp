@@ -8,7 +8,7 @@
 
 #include "Task.hpp"
 #include <iostream>
-#include "../Util/EXP_ASSERT.h"
+#include <EXPUtil/assert/EXP_ASSERT.h>
 
 EXP::Task::Task(EXP::Time::Keeper *time_keeper) : EXP::StatePrimitive(time_keeper)
 {

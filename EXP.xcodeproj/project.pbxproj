@@ -10,7 +10,6 @@
 		012E31021FAE2BB800C75429 /* test_threaded_states3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 012E31011FAE2BB800C75429 /* test_threaded_states3.hpp */; };
 		0156F19A1FB1431C00169154 /* libEXPUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0156F1991FB1431C00169154 /* libEXPUtil.a */; };
 		0156F19B1FB1433700169154 /* libEXPUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0156F1991FB1431C00169154 /* libEXPUtil.a */; };
-		0157646D1FAF7EFE00000957 /* EXP_ASSERT.h in Headers */ = {isa = PBXBuildFile; fileRef = 0157646C1FAF7EFE00000957 /* EXP_ASSERT.h */; };
 		01C9DB2A1FA4CAE3009928B1 /* libEXPGL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9DB291FA4CAE3009928B1 /* libEXPGL.dylib */; };
 		01C9DB321FA4CD1E009928B1 /* TargetXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C9DB301FA4CD1E009928B1 /* TargetXY.cpp */; };
 		01C9DB331FA4CD1E009928B1 /* TargetXY.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB311FA4CD1E009928B1 /* TargetXY.hpp */; };
@@ -58,7 +57,6 @@
 /* Begin PBXFileReference section */
 		012E31011FAE2BB800C75429 /* test_threaded_states3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_threaded_states3.hpp; sourceTree = "<group>"; };
 		0156F1991FB1431C00169154 /* libEXPUtil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEXPUtil.a; path = ../../../../../../../usr/local/lib/libEXPUtil.a; sourceTree = "<group>"; };
-		0157646C1FAF7EFE00000957 /* EXP_ASSERT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXP_ASSERT.h; sourceTree = "<group>"; };
 		01C9DB1A1FA4CAC4009928B1 /* libEXP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEXP.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C9DB291FA4CAE3009928B1 /* libEXPGL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEXPGL.dylib; path = ../../../../../../../usr/local/lib/libEXPGL.dylib; sourceTree = "<group>"; };
 		01C9DB301FA4CD1E009928B1 /* TargetXY.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TargetXY.cpp; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				01D540C11FA6356100380DE3 /* Time */,
-				01CF14501FA50F7000512E1A /* Util */,
 				01C9DB721FA4EB10009928B1 /* State */,
 				01C9DB2B1FA4CB2C009928B1 /* Tracking */,
 			);
@@ -217,14 +214,6 @@
 			path = State;
 			sourceTree = "<group>";
 		};
-		01CF14501FA50F7000512E1A /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				0157646C1FAF7EFE00000957 /* EXP_ASSERT.h */,
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
 		01D540C11FA6356100380DE3 /* Time */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +237,6 @@
 				01D2DF081FA6B24B002AE43D /* test_states.hpp in Headers */,
 				01D7A2F61FAAAEA600A49499 /* test_threaded_states.hpp in Headers */,
 				01D540C91FA63C5E00380DE3 /* Timer.hpp in Headers */,
-				0157646D1FAF7EFE00000957 /* EXP_ASSERT.h in Headers */,
 				01D540B81FA6207000380DE3 /* threading1.hpp in Headers */,
 				01C9DB371FA4CD6D009928B1 /* BoundsXY.hpp in Headers */,
 				01C9DB331FA4CD1E009928B1 /* TargetXY.hpp in Headers */,
