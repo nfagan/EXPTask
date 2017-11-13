@@ -484,11 +484,11 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				HEADER_SEARCH_PATHS = (
-					/Volumes/external/code/changlab/tasks/exp/EXPGL/include,
-					/Volumes/external/code/changlab/tasks/exp/EXPGL,
+					/Users/Nick/repositories/EXPGL/include,
+					/Users/Nick/repositories/EXPGL,
 					"$(PROJECT_DIR)/include",
 					"$(PROJECT_DIR)",
-					/Volumes/external/code/changlab/tasks/exp/EXPUtil/include,
+					/Users/Nick/repositories/EXPUtil/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -503,11 +503,11 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				HEADER_SEARCH_PATHS = (
-					/Volumes/external/code/changlab/tasks/exp/EXPGL/include,
-					/Volumes/external/code/changlab/tasks/exp/EXPGL,
+					/Users/Nick/repositories/EXPGL/include,
+					/Users/Nick/repositories/EXPGL,
 					"$(PROJECT_DIR)/include",
 					"$(PROJECT_DIR)",
-					/Volumes/external/code/changlab/tasks/exp/EXPUtil/include,
+					/Users/Nick/repositories/EXPUtil/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -521,9 +521,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/include",
-					/Volumes/external/code/changlab/tasks/exp/EXPGL,
-					/Volumes/external/code/changlab/tasks/exp/EXPGL/include,
-					/Volumes/external/code/changlab/tasks/exp/EXPUtil/include,
+					/Users/Nick/repositories/EXPGL,
+					/Users/Nick/repositories/EXPGL/include,
+					/Users/Nick/repositories/EXPUtil/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -537,9 +537,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/include",
-					/Volumes/external/code/changlab/tasks/exp/EXPGL,
-					/Volumes/external/code/changlab/tasks/exp/EXPGL/include,
-					/Volumes/external/code/changlab/tasks/exp/EXPUtil/include,
+					/Users/Nick/repositories/EXPGL,
+					/Users/Nick/repositories/EXPGL/include,
+					/Users/Nick/repositories/EXPUtil/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";

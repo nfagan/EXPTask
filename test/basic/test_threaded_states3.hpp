@@ -23,6 +23,7 @@ namespace EXP {
             const std::string RECT2("rect2");
             const std::string RECT3("rect3");
             const std::string MAT1("mat1");
+            const std::string MAT_ANON("mat_anon");
             const std::string TEX1("tex1");
         }
         
@@ -77,7 +78,7 @@ namespace EXP {
                 rect_pos.y = 0.5f;
             }
             
-            Rectangle *rectangle = rsrc->Get<Rectangle>("RECTANGLE");
+            Model *rectangle = rsrc->Get<Model>("RECTANGLE");
             
             rectangle->SetPosition(rect_pos);
         }
@@ -108,6 +109,20 @@ namespace EXP {
             iterations++;
         }
         
+        Rect<float> get_pixel_vertices(RenderTarget *target, Model* model)
+        {
+            Rect<float> screen = static_cast<Rect<float>>(render_target->GetFullRect());
+            glm::vec3 pos = model->get_units_position(screen);
+            glm::vec3 scl = model->get_units_scale(screen);
+            
+            float left = pos.x - scl.x;
+            float right = pos.x + scl.x;
+            float top = pos.y - scl.y;
+            float bottom = pos.y + scl.y;
+            
+            return Rect<float>(left, top, right, bottom);
+        }
+        
         void task_thread_loop(void)
         {
             task = new Task(time);
@@ -128,9 +143,8 @@ namespace EXP {
                 render_looper->OnceDrawReady([] (RenderLoop *looper) {
                     looper->ClearQueue();
                     std::vector<Model*> elements =  rsrc->GetByTag<Model>(IDS::RECT3);
-                    Rectangle *rect =               rsrc->Get<Rectangle>(IDS::MAIN_RECT);
-                    MaterialSolid2D *mat =          rsrc->Get<MaterialSolid2D>(IDS::MAT1);
-                    mat->SetAlbedo(Colors::RED);
+                    Model *rect =                   rsrc->Get<Model>(IDS::MAIN_RECT);
+                    Material *mat =                 rsrc->Get<Material>(IDS::MAT1);
                     elements.push_back(rect);
                     for (unsigned i = 0; i < elements.size(); ++i) elements[i]->SetMaterial(mat);
                     looper->Queue(elements);
@@ -138,8 +152,8 @@ namespace EXP {
             });
             
             state1->OnLoop([&] (State* state) {
-                Rectangle *rectangle = rsrc->Get<Rectangle>(IDS::MAIN_RECT);
-                Rect<float> pixel_verts = rectangle->GetPixelVertices(render_target->GetFullRect());
+                Model *rectangle = rsrc->Get<Model>(IDS::MAIN_RECT);
+                Rect<float> pixel_verts = get_pixel_vertices(render_target, rectangle);
                 bounds_rectangle->SetBounds(pixel_verts);
                 bool in_bounds = target1->InBounds();
                 bool state_changed;
@@ -147,7 +161,7 @@ namespace EXP {
                 if (in_bounds)
                 {
                     func = [] (RenderLoop *looper) {
-                        MaterialSolid2D *mat = rsrc->Get<MaterialSolid2D>(IDS::MAT1);
+                        Material *mat = rsrc->Get<Material>(IDS::MAT1);
                         mat->SetAlbedo(Colors::GREY_50);
                     };
                     state_changed = !was_in_bounds;
@@ -156,7 +170,7 @@ namespace EXP {
                 else
                 {
                     func = [] (RenderLoop *looper) {
-                        MaterialSolid2D *mat = rsrc->Get<MaterialSolid2D>(IDS::MAT1);
+                        Material *mat = rsrc->Get<Material>(IDS::MAT1);
                         mat->SetAlbedo(Colors::RED);
                     };
                     state_changed = was_in_bounds;
@@ -169,7 +183,7 @@ namespace EXP {
                 }
             });
             state1->OnExit([] (State* state) {
-                state->Next(state->GetStateById(STATE2));
+                state->Next(state->GetStateById(STATE1));
             });
             state1->SetTimeIn(Time::duration_ms(duration1));
             state1->ExitOnTimeExceeded();
@@ -185,8 +199,8 @@ namespace EXP {
                 render_looper->OnceDrawReady([] (RenderLoop *looper) {
                     looper->ClearQueue();
                     std::vector<Model*> elements = rsrc->GetByTag<Model>(IDS::RECT3);
-                    MaterialSolid2D *mat = rsrc->Get<MaterialSolid2D>(IDS::MAT1);
-                    Rectangle *rect = rsrc->Get<Rectangle>(IDS::MAIN_RECT);
+                    Material *mat = rsrc->Get<Material>(IDS::MAT1);
+                    Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
                     mat->SetAlbedo(Colors::WHITE);
                     rect->SetMaterial(mat);
                     elements.push_back(rect);
@@ -209,9 +223,9 @@ namespace EXP {
                 render_looper->OnceDrawReady([] (RenderLoop *looper) {
                     looper->ClearQueue();
                     std::vector<Model*> elements = rsrc->GetByTag<Model>(IDS::RECT3);
-                    MaterialSolid2D *mat =  rsrc->Get<MaterialSolid2D>(IDS::MAT1);
-                    Rectangle *rect =       rsrc->Get<Rectangle>(IDS::MAIN_RECT);
-                    mat->SetAlbedo(Colors::MAGENTA);
+                    Material *mat = rsrc->Get<Material>(IDS::MAT_ANON);
+                    mat->SetAlbedo(Colors::GREEN);
+                    Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
                     rect->SetMaterial(mat);
                     elements.push_back(rect);
                     looper->Queue(elements);
@@ -229,11 +243,13 @@ namespace EXP {
             task->OnLoop([] (EXP::Task* task) {
                  if (keyboard->KeyDown(GLFW_KEY_SPACE))
                  {
-                     render_looper->OnceDrawReady([&] (EXP::RenderLoop* looper) {
-                         MaterialTexture2D *mat = rsrc->Get<MaterialTexture2D>(IDS::TEX1);
-                         Rectangle *rect = rsrc->Get<Rectangle>(IDS::MAIN_RECT);
-                         rect->SetMaterial(mat);
-//                         mat->SetAlbedo(Colors::GREY_50);
+                     render_looper->OnceDrawReady([&] (EXP::RenderLoop *looper) {
+                         Material *mat = rsrc->Get<Material>(IDS::TEX1);
+                         std::vector<Model*> models = rsrc->GetByTag<Model>(IDS::RECT3);
+                         for (unsigned i = 0; i < models.size(); i++)
+                         {
+                             models[i]->SetMaterial(mat);
+                         }
                      });
                  }
             });
@@ -258,15 +274,23 @@ namespace EXP {
             render_target = gl_manager->CreateRenderTarget(windows);
             Renderer *renderer = new Renderer(render_target);
             render_looper = new RenderLoop(renderer);
+            
+            //  materials
             Texture *tex = rsrc->GetTexture<Texture>("/Users/Nick/Desktop/eg1.png");
-            MaterialSolid2D *mat = rsrc->Create<MaterialSolid2D>(render_target);
-            MaterialTexture2D *mat_tex = rsrc->Create<MaterialTexture2D>(render_target, tex);
-            Rectangle *rectangle = rsrc->Create<Rectangle>(render_target);
+            
+            Material *mat_anon = rsrc->Create<Material>(render_target);
+            Material *mat = rsrc->Create<Material>(render_target);
+            Material *mat_tex = rsrc->Create<Material>(render_target);
+            mat->SetAlbedo(Colors::RED);
+            
+            //  rectangle
+            Model *rectangle = rsrc->CreateRectangle(render_target);
+            
+            //  globals
             Shader *shader = new Shader2D();
             keyboard = new InputKeyboard(render_target);
             mouse = new InputXY(render_target);
-            
-            bounds_rectangle = new BoundsRectangle(rectangle->GetPixelVertices(render_target->GetFullRect()));
+            bounds_rectangle = new BoundsRectangle(get_pixel_vertices(render_target, rectangle));
             target1 = new TargetXY(bounds_rectangle, mouse);
             
             glm::vec2 aspect = glm::vec2(1.0f, (float)tex->GetWidth() / (float)tex->GetHeight());
@@ -274,9 +298,10 @@ namespace EXP {
             rectangle->SetShader(shader);
             rectangle->SetUnits(Model::MIXED);
             rectangle->SetScale(aspect * 5.0f);
-            rectangle->SetMaterial(mat_tex);
+            rectangle->SetMaterial(mat);
             
             rsrc->SetName(mat, IDS::MAT1);
+            rsrc->SetName(mat_anon, IDS::MAT_ANON);
             rsrc->SetName(rectangle, IDS::MAIN_RECT);
             rsrc->SetName(mat_tex, IDS::TEX1);
             
@@ -285,7 +310,7 @@ namespace EXP {
             
             for (unsigned i = 0; i < 1000; ++i)
             {
-                Rectangle *new_rect = rsrc->Create<Rectangle>(render_target);
+                Model *new_rect = rsrc->CreateRectangle(render_target);
                 new_rect->MakeLike(rectangle);
                 new_rect->SetScale(glm::vec2(10.0f, 5.0f));
                 float x = (float) rand()/RAND_MAX;
