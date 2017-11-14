@@ -175,7 +175,9 @@
     <ClCompile Include="exp\state\exit_conditions.cpp" />
     <ClCompile Include="exp\state\State.cpp" />
     <ClCompile Include="exp\state\StatePrimitive.cpp" />
+    <ClCompile Include="EXP\State\TargetSet.cpp" />
     <ClCompile Include="exp\state\Task.cpp" />
+    <ClCompile Include="EXP\Time\frame_timer.cpp" />
     <ClCompile Include="exp\time\Keeper.cpp" />
     <ClCompile Include="exp\time\Timer.cpp" />
     <ClCompile Include="exp\tracking\BoundsRectangle.cpp" />
@@ -189,7 +191,9 @@
     <ClInclude Include="exp\state\exit_conditions.hpp" />
     <ClInclude Include="exp\state\State.hpp" />
     <ClInclude Include="exp\state\StatePrimitive.hpp" />
+    <ClInclude Include="EXP\State\TargetSet.hpp" />
     <ClInclude Include="exp\state\Task.hpp" />
+    <ClInclude Include="EXP\Time\frame_timer.hpp" />
     <ClInclude Include="exp\time\Keeper.hpp" />
     <ClInclude Include="exp\time\Timer.hpp" />
     <ClInclude Include="exp\time\Timings.hpp" />

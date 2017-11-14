@@ -19,7 +19,11 @@ namespace EXP {
 namespace test_case {
     
 namespace IDS {
+#ifdef __APPLE__
     const std::string TEX_PATH("/Users/Nick/Desktop/eg1.png");
+#else
+	const std::string TEX_PATH("C:\\Users\\changLab\\Desktop\\blue.jpg");
+#endif
     const std::string MAIN_RECT("RECTANGLE");
     const std::string MAIN_RECT2("RECTANGLE2");
     const std::string RECT1("rect1");
@@ -249,7 +253,7 @@ void gl_init(void)
     using namespace EXP;
     
     std::vector<Window*> windows;
-    windows.push_back(gl_manager->OpenWindow(0, nullptr));
+    windows.push_back(gl_manager->OpenWindow(0, 400, 400, nullptr));
     render_target = gl_manager->CreateRenderTarget(windows);
     Renderer *renderer = new Renderer(render_target);
     render_looper = new RenderLoop(renderer);
@@ -298,7 +302,7 @@ void gl_init(void)
     rsrc->SetName(rectangle, IDS::MAIN_RECT);
     rsrc->SetName(mat_tex, IDS::TEX1);
     
-    for (unsigned i = 0; i < 1000; ++i)
+    for (unsigned i = 0; i < 10; ++i)
     {
         Model *new_rect = rsrc->CreateRectangle(render_target);
         new_rect->MakeLike(rectangle);
