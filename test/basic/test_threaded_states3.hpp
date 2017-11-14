@@ -54,15 +54,6 @@ TargetXY *target2 = nullptr;
 RenderLoop *render_looper = nullptr;
 glm::vec2 rect_pos = Positions2D::CENTER;
 
-float step_amount = 0.005f;
-unsigned long iterations = 0;
-double avg = 0.0;
-double current = 0.0;
-double last = 0.0;
-double delta = 0.0;
-double min_value = std::numeric_limits<double>::max();
-double max_value = std::numeric_limits<double>::min();
-
 //
 //  task stuff
 //
@@ -73,6 +64,7 @@ void render_loop(EXP::RenderLoop* looper)
     
     mouse->UpdateCoordinates();
     
+    float step_amount = 0.005f;
     if (keyboard->KeyDown(GLFW_KEY_A)) rect_pos.x -= step_amount;
     if (keyboard->KeyDown(GLFW_KEY_S)) rect_pos.y += step_amount;
     if (keyboard->KeyDown(GLFW_KEY_D)) rect_pos.x += step_amount;
