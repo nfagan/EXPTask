@@ -25,12 +25,19 @@ EXP::Time::Timer::Timer(EXP::Time::Keeper *time, EXP::Time::duration_ms duration
     init_time();
 }
 
-EXP::Time::Timer::~Timer() {};
+void EXP::Time::Timer::Initialize(EXP::Time::Keeper *time, EXP::Time::duration_ms duration)
+{
+    this->time = time;
+    this->duration = duration;
+    init_time();
+}
 
 void EXP::Time::Timer::init_time()
 {
+    assert(!did_initialize);
     start = time->Now();
     assert(!isnan(start));
+    did_initialize = true;
 }
 
 void EXP::Time::Timer::SetDuration(EXP::Time::duration_ms duration)

@@ -18,6 +18,7 @@
 #include <EXP/Time/Keeper.hpp>
 #include <EXP/Time/Timer.hpp>
 
+#include <EXP/State/TargetSet.hpp>
 #include <EXP/State/State.hpp>
 #include <EXP/State/Task.hpp>
 #include <EXP/State/exit_conditions.hpp>

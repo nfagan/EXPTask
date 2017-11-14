@@ -25,6 +25,8 @@ namespace EXP {
         virtual void OnLoop(std::function<void(Task*)> on_loop);
         virtual void OnExit(std::function<void(Task*)> on_exit);
         
+        void LogTime(void) const;
+        
         EXP::State* CreateState(unsigned id);
         EXP::State* GetStateById(unsigned id);
         

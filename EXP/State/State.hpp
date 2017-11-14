@@ -13,6 +13,7 @@
 #include "StatePrimitive.hpp"
 #include "../Time/Timer.hpp"
 #include "exit_conditions.hpp"
+#include "TargetSet.hpp"
 
 namespace EXP {
     
@@ -24,8 +25,9 @@ namespace EXP {
         
     public:
         State(EXP::Time::Keeper *time_keeper);
-        virtual ~State();
+        virtual ~State() = default;
         
+        virtual TargetSet& GetTargetSet();
         virtual unsigned GetId() const;
         virtual State* GetStateById(unsigned id) const;
         
@@ -37,6 +39,7 @@ namespace EXP {
     protected:
         unsigned id;
         Task *parent = nullptr;
+        TargetSet target_set;
         
         std::vector<EXP::exit_conditions::general*> constant_exit_conditions;
         std::vector<EXP::exit_conditions::general*> transient_exit_conditions;

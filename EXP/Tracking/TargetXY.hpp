@@ -12,20 +12,25 @@
 #include <stdio.h>
 #include <EXPGL/Input/InputXY.hpp>
 #include "BoundsXY.hpp"
+#include <atomic>
+#include <string>
 
 namespace EXP {
     class TargetXY
     {
     public:
         TargetXY(EXP::BoundsXY *in_bounds, const EXP::InputXY *in_input_source);
-        ~TargetXY();
+        ~TargetXY() = default;
         
         virtual bool InBounds(void) const;
-        
         virtual EXP::BoundsXY* GetBounds(void) const;
+        
+        unsigned GetId(void) const;
+        void SetId(unsigned id);
     protected:
+        std::atomic<unsigned int> id;
         EXP::BoundsXY *bounds;
-        const EXP::InputXY *input_source;
+        const EXP::InputXY *input_source = nullptr;
     };
 }
 

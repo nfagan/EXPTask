@@ -15,6 +15,7 @@
 #include <atomic>
 #include <EXPGL/Input/InputKeyboard.hpp>
 #include "../Time/Timer.hpp"
+#include "../Time/frame_timer.hpp"
 #include "exit_conditions.hpp"
 
 namespace EXP {
@@ -39,15 +40,18 @@ namespace EXP {
         
         virtual EXP::Time::Timer* GetTimer() const;
         virtual StatePrimitive* GetNext() const;
+        const std::string& GetName() const;
         
         virtual EXP::Time::duration_s EllapsedTime() const;
+        virtual void LogTime() const;
         
         virtual void ExitNow(void);
         virtual void ExitOnTimeExceeded(void);
         virtual void ExitOnKeyPress(InputKeyboard *keyboard, int key);
-        virtual void ExitOnceKeyPress(InputKeyboard *keyboard, int key);
         
         virtual void SetTimeIn(EXP::Time::duration_s duration);
+        void SetName(std::string name);
+        
         virtual void Next(StatePrimitive* state);
         virtual std::string ExitReason(void);
         
@@ -57,6 +61,10 @@ namespace EXP {
         virtual void exit();
         
     protected:
+        frame_timer time_descriptives;
+        
+        std::string name;
+        
         std::atomic<EXP::Time::Keeper*> time_keeper;
         std::atomic<EXP::Time::Timer*> timer;
         StatePrimitive *next = nullptr;
@@ -67,6 +75,7 @@ namespace EXP {
         EXP::exit_conditions::general *last_exit_condition = nullptr;
         
         virtual bool check_exit_conditions(const std::vector<exit_conditions::general*> &exit_conditions);
+        std::string get_display_name(void) const;
     };
 }
 

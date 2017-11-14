@@ -10,6 +10,8 @@
 		012E31021FAE2BB800C75429 /* test_threaded_states3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 012E31011FAE2BB800C75429 /* test_threaded_states3.hpp */; };
 		0156F19A1FB1431C00169154 /* libEXPUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0156F1991FB1431C00169154 /* libEXPUtil.a */; };
 		0156F19B1FB1433700169154 /* libEXPUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0156F1991FB1431C00169154 /* libEXPUtil.a */; };
+		01BCD8511FBA380700350101 /* TargetSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01BCD84F1FBA380700350101 /* TargetSet.cpp */; };
+		01BCD8521FBA380700350101 /* TargetSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01BCD8501FBA380700350101 /* TargetSet.hpp */; };
 		01C9DB2A1FA4CAE3009928B1 /* libEXPGL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9DB291FA4CAE3009928B1 /* libEXPGL.dylib */; };
 		01C9DB321FA4CD1E009928B1 /* TargetXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C9DB301FA4CD1E009928B1 /* TargetXY.cpp */; };
 		01C9DB331FA4CD1E009928B1 /* TargetXY.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01C9DB311FA4CD1E009928B1 /* TargetXY.hpp */; };
@@ -39,6 +41,8 @@
 		01DAAD001FAE99EB00C0A2E3 /* StatePrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01DAACFE1FAE99EB00C0A2E3 /* StatePrimitive.cpp */; };
 		01DAAD011FAE99EC00C0A2E3 /* StatePrimitive.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01DAACFF1FAE99EB00C0A2E3 /* StatePrimitive.hpp */; };
 		01DAD9801FA808CA00EF8B43 /* exit_conditions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01DAD97F1FA808CA00EF8B43 /* exit_conditions.cpp */; };
+		01E9B99A1FBA875C00422499 /* frame_timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01E9B9991FBA875C00422499 /* frame_timer.hpp */; };
+		01E9B99C1FBA87E000422499 /* frame_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E9B99B1FBA87E000422499 /* frame_timer.cpp */; };
 		01EA09D81FABF62E003B32FB /* test_threaded_states2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 01EA09D71FABF62E003B32FB /* test_threaded_states2.hpp */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +61,8 @@
 /* Begin PBXFileReference section */
 		012E31011FAE2BB800C75429 /* test_threaded_states3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_threaded_states3.hpp; sourceTree = "<group>"; };
 		0156F1991FB1431C00169154 /* libEXPUtil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEXPUtil.a; path = ../../../../../../../usr/local/lib/libEXPUtil.a; sourceTree = "<group>"; };
+		01BCD84F1FBA380700350101 /* TargetSet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TargetSet.cpp; sourceTree = "<group>"; };
+		01BCD8501FBA380700350101 /* TargetSet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TargetSet.hpp; sourceTree = "<group>"; };
 		01C9DB1A1FA4CAC4009928B1 /* libEXP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEXP.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C9DB291FA4CAE3009928B1 /* libEXPGL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEXPGL.dylib; path = ../../../../../../../usr/local/lib/libEXPGL.dylib; sourceTree = "<group>"; };
 		01C9DB301FA4CD1E009928B1 /* TargetXY.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TargetXY.cpp; sourceTree = "<group>"; };
@@ -88,6 +94,8 @@
 		01DAACFE1FAE99EB00C0A2E3 /* StatePrimitive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StatePrimitive.cpp; sourceTree = "<group>"; };
 		01DAACFF1FAE99EB00C0A2E3 /* StatePrimitive.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StatePrimitive.hpp; sourceTree = "<group>"; };
 		01DAD97F1FA808CA00EF8B43 /* exit_conditions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = exit_conditions.cpp; sourceTree = "<group>"; };
+		01E9B9991FBA875C00422499 /* frame_timer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = frame_timer.hpp; sourceTree = "<group>"; };
+		01E9B99B1FBA87E000422499 /* frame_timer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = frame_timer.cpp; sourceTree = "<group>"; };
 		01EA09D71FABF62E003B32FB /* test_threaded_states2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test_threaded_states2.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,6 +218,8 @@
 				01D2DF021FA68123002AE43D /* Task.hpp */,
 				01DAACFE1FAE99EB00C0A2E3 /* StatePrimitive.cpp */,
 				01DAACFF1FAE99EB00C0A2E3 /* StatePrimitive.hpp */,
+				01BCD84F1FBA380700350101 /* TargetSet.cpp */,
+				01BCD8501FBA380700350101 /* TargetSet.hpp */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -222,6 +232,8 @@
 				01D540C61FA63C5E00380DE3 /* Timer.cpp */,
 				01D540C71FA63C5E00380DE3 /* Timer.hpp */,
 				01D2DEF91FA66C9E002AE43D /* Timings.hpp */,
+				01E9B9991FBA875C00422499 /* frame_timer.hpp */,
+				01E9B99B1FBA87E000422499 /* frame_timer.cpp */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -239,6 +251,8 @@
 				01D540C91FA63C5E00380DE3 /* Timer.hpp in Headers */,
 				01D540B81FA6207000380DE3 /* threading1.hpp in Headers */,
 				01C9DB371FA4CD6D009928B1 /* BoundsXY.hpp in Headers */,
+				01BCD8521FBA380700350101 /* TargetSet.hpp in Headers */,
+				01E9B99A1FBA875C00422499 /* frame_timer.hpp in Headers */,
 				01C9DB331FA4CD1E009928B1 /* TargetXY.hpp in Headers */,
 				01C9DB761FA4EB1B009928B1 /* State.hpp in Headers */,
 				01D540B51FA618F600380DE3 /* BoundsRectangle.hpp in Headers */,
@@ -353,10 +367,12 @@
 				01DAD9801FA808CA00EF8B43 /* exit_conditions.cpp in Sources */,
 				01C9DB321FA4CD1E009928B1 /* TargetXY.cpp in Sources */,
 				01DAAD001FAE99EB00C0A2E3 /* StatePrimitive.cpp in Sources */,
+				01E9B99C1FBA87E000422499 /* frame_timer.cpp in Sources */,
 				01D540C81FA63C5E00380DE3 /* Timer.cpp in Sources */,
 				01D2DF061FA6826A002AE43D /* Task.cpp in Sources */,
 				01D540B41FA618F600380DE3 /* BoundsRectangle.cpp in Sources */,
 				01D540C41FA6356A00380DE3 /* Keeper.cpp in Sources */,
+				01BCD8511FBA380700350101 /* TargetSet.cpp in Sources */,
 				01C9DB581FA4E0A6009928B1 /* main.cpp in Sources */,
 				01D2DF001FA67568002AE43D /* State.cpp in Sources */,
 			);

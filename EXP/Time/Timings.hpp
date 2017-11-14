@@ -9,6 +9,7 @@
 #ifndef Timings_h
 #define Timings_h
 #include <limits>
+#include <chrono>
 
 namespace EXP {
     namespace Time {

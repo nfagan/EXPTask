@@ -11,11 +11,8 @@
 
 EXP::State::State(EXP::Time::Keeper *time_keeper) : EXP::StatePrimitive(time_keeper)
 {
-    this->time_keeper.store(time_keeper);
-    this->timer.store(new EXP::Time::Timer(time_keeper, Time::DURATION_INFINITE));
+    target_set.initialize(this, time_keeper);
 }
-
-EXP::State::~State() { }
 
 void EXP::State::OnEntry(std::function<void (State *)> on_entry)
 {
@@ -47,6 +44,11 @@ void EXP::State::run()
     exit();
 }
 
+EXP::TargetSet& EXP::State::GetTargetSet()
+{
+    return target_set;
+}
+
 unsigned EXP::State::GetId(void) const
 {
     return id;
@@ -70,11 +72,13 @@ void EXP::State::set_id(unsigned id)
 void EXP::State::entry()
 {
     EXP::StatePrimitive::entry();
+    target_set.reset();
     on_entry(this);
 }
 
 void EXP::State::loop()
 {
+    target_set.update();
     on_loop(this);
 }
 

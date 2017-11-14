@@ -67,6 +67,13 @@ void EXP::Task::Run()
     exit();
 }
 
+void EXP::Task::LogTime() const
+{
+    std::string display_name = get_display_name();
+    std::cout << "\nTiming info for task: " << display_name;
+    std::cout << "\n\tEllapsed time: " << EllapsedTime().count() << " (s)" << std::endl;
+}
+
 void EXP::Task::exit()
 {
     on_exit(this);

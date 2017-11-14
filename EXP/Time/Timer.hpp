@@ -17,16 +17,19 @@ namespace EXP {
         class Timer
         {
         public:
+            Timer() = default;
             Timer(EXP::Time::Keeper *time);
             Timer(EXP::Time::Keeper *time, EXP::Time::duration_ms duration);
-            ~Timer();
+            ~Timer() = default;
             
+            void Initialize(EXP::Time::Keeper *time, EXP::Time::duration_ms duration);
             void SetDuration(EXP::Time::duration_ms duration);
             void Reset(void);
             bool Ellapsed(void) const;
             double EllapsedTime(void) const;
         private:
             void init_time();
+            bool did_initialize = false;
             double start;
             EXP::Time::Keeper *time;
             EXP::Time::duration_ms duration;

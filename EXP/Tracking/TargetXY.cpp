@@ -10,11 +10,10 @@
 
 EXP::TargetXY::TargetXY(EXP::BoundsXY *in_bounds, const EXP::InputXY *in_input_source)
 {
+    id.store(0);
     this->bounds = in_bounds;
     this->input_source = in_input_source;
 }
-
-EXP::TargetXY::~TargetXY() {};
 
 bool EXP::TargetXY::InBounds() const
 {
@@ -24,4 +23,14 @@ bool EXP::TargetXY::InBounds() const
 EXP::BoundsXY* EXP::TargetXY::GetBounds() const
 {
     return bounds;
+}
+
+void EXP::TargetXY::SetId(unsigned id)
+{
+    this->id.store(id);
+}
+
+unsigned EXP::TargetXY::GetId() const
+{
+    return id.load();
 }
