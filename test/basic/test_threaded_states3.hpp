@@ -26,6 +26,7 @@ namespace IDS {
 #endif
     const std::string MAIN_RECT("RECTANGLE");
     const std::string MAIN_RECT2("RECTANGLE2");
+    const std::string CIRCLE1("circle1");
     const std::string RECT1("rect1");
     const std::string RECT2("rect2");
     const std::string RECT3("rect3");
@@ -79,9 +80,11 @@ void render_loop(EXP::RenderLoop* looper)
         rect_pos.y = 0.5f;
     }
     
-    Model *rectangle = rsrc->Get<Model>("RECTANGLE");
+    Model *rectangle = rsrc->Get<Model>(IDS::MAIN_RECT);
+    Model *circle = rsrc->Get<Model>(IDS::CIRCLE1);
     
     rectangle->SetPosition(rect_pos);
+    circle->SetPosition(rect_pos);
 }
 
 Rect<float> get_pixel_vertices(RenderTarget *target, Model* model)
@@ -121,10 +124,12 @@ void task_thread_loop(void)
             std::vector<Model*> elements =  rsrc->GetByTag<Model>(IDS::RECT3);
             Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
             Model *rect2 = rsrc->Get<Model>(IDS::MAIN_RECT2);
+            Model *circle = rsrc->Get<Model>(IDS::CIRCLE1);
             Material *mat = rsrc->Get<Material>(IDS::MAT1);
             for (unsigned i = 0; i < elements.size(); ++i) elements[i]->SetMaterial(mat);
             elements.push_back(rect);
             elements.push_back(rect2);
+            elements.push_back(circle);
             looper->Queue(elements);
         });
     });
@@ -273,6 +278,7 @@ void gl_init(void)
     //  rectangle
     Model *rectangle = rsrc->CreateRectangle(render_target);
     Model *rectangle2 = rsrc->CreateRectangle(render_target);
+    Model *circle = rsrc->CreateSphere(render_target);
     
     //  globals
     Shader *shader = new Shader2D();
@@ -283,7 +289,7 @@ void gl_init(void)
     
     rectangle->SetShader(shader);
     rectangle->SetUnits(Model::MIXED);
-    rectangle->SetScale(aspect * 30.0f);
+    rectangle->SetScale(50.0f);
     rectangle->SetMaterial(mat);
     rectangle->SetPosition(rect_pos);
     bounds_rectangle = new BoundsRectangle(get_pixel_vertices(render_target, rectangle));
@@ -296,13 +302,20 @@ void gl_init(void)
     target2 = new TargetXY(bounds_rect2, mouse);
     target2->SetId(1);
     
+    circle->SetShader(shader);
+    circle->SetPosition(Positions2D::CENTER);
+    circle->SetUnits(Model::MIXED);
+    circle->SetScale(50.0f);
+    circle->GetMaterial()->SetAlbedo(Colors::WHITE);
+    
     rsrc->SetName(rectangle2, IDS::MAIN_RECT2);
     rsrc->SetName(mat, IDS::MAT1);
     rsrc->SetName(mat_anon, IDS::MAT_ANON);
     rsrc->SetName(rectangle, IDS::MAIN_RECT);
     rsrc->SetName(mat_tex, IDS::TEX1);
+    rsrc->SetName(circle, IDS::CIRCLE1);
     
-    for (unsigned i = 0; i < 10; ++i)
+    for (unsigned i = 0; i < 50; ++i)
     {
         Model *new_rect = rsrc->CreateRectangle(render_target);
         new_rect->MakeLike(rectangle);
