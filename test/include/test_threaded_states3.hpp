@@ -312,7 +312,7 @@ void gl_init(void)
     rsrc->SetName(mat_tex, IDS::TEX1);
     rsrc->SetName(circle, IDS::CIRCLE1);
     
-    for (unsigned i = 0; i < 50; ++i)
+    for (unsigned i = 0; i < 500; ++i)
     {
         Model *new_rect = rsrc->CreateRectangle();
         new_rect->MakeLike(rectangle);
