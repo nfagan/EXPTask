@@ -11,7 +11,6 @@
 
 #include <EXPTask.hpp>
 #include <EXPGL.hpp>
-#include <EXPUtil/data/commitable.hpp>
 #include <iostream>
 #include <thread>
 
@@ -48,10 +47,10 @@ GLContextManager *gl_manager = new GLContextManager();
 GLPipeline pipeline(gl_manager);
 
 InputKeyboard *keyboard = nullptr;
-InputXY *mouse = nullptr;
+std::shared_ptr<InputXY> mouse;
 
-BoundsRectangle *bounds_rectangle = nullptr;
-BoundsRectangle *bounds_rect2 = nullptr;
+std::shared_ptr<BoundsRectangle> bounds_rectangle;
+std::shared_ptr<BoundsRectangle> bounds_rect2;
 TargetXY *target1 = nullptr;
 TargetXY *target2 = nullptr;
 
@@ -78,7 +77,7 @@ void render_loop(EXP::RenderLoop* looper)
         rect_pos.y = 0.5f;
     }
     
-    GLResourceManager *rsrc = pipeline.GetResource();
+    std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
     Model *rectangle = rsrc->Get<Model>(IDS::MAIN_RECT);
     Model *circle = rsrc->Get<Model>(IDS::CIRCLE1);
     
@@ -120,13 +119,14 @@ void task_thread_loop(void)
         state->LogTime();
         pipeline.GetLoop()->OnceDrawReady([] (RenderLoop *looper) {
             looper->ClearQueue();
-            GLResourceManager *rsrc = pipeline.GetResource();
+            std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
             std::vector<Model*> elements = rsrc->GetByTag<Model>(IDS::RECT3);
             Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
             Model *rect2 = rsrc->Get<Model>(IDS::MAIN_RECT2);
             Model *circle = rsrc->Get<Model>(IDS::CIRCLE1);
             Material *mat = rsrc->Get<Material>(IDS::MAT1);
-            for (unsigned i = 0; i < elements.size(); ++i) elements[i]->SetMaterial(mat);
+            for (unsigned i = 0; i < elements.size(); ++i)
+                elements[i]->SetMaterial(mat);
             elements.push_back(rect);
             elements.push_back(rect2);
             elements.push_back(circle);
@@ -135,7 +135,7 @@ void task_thread_loop(void)
     });
     
     state1->OnLoop([&] (State* state) {
-        GLResourceManager *rsrc = pipeline.GetResource();
+        std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
         RenderTarget *target = pipeline.GetTarget();
         Model *rectangle = rsrc->Get<Model>(IDS::MAIN_RECT);
         Model *rect2 = rsrc->Get<Model>(IDS::MAIN_RECT2);
@@ -159,7 +159,7 @@ void task_thread_loop(void)
     
     target_set.OnEllapsed([] (State *state, TargetXY *target) {
         pipeline.GetLoop()->OnceDrawReady([] (RenderLoop *looper) {
-            GLResourceManager *rsrc = pipeline.GetResource();
+            std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
             Material *mat = rsrc->Get<Material>(IDS::MAT1);
             Texture *tex = rsrc->GetTexture<Texture>(IDS::TEX_PATH.c_str());
             mat->SetAlbedo(tex);
@@ -168,7 +168,7 @@ void task_thread_loop(void)
     target_set.OnTargetEntry([] (State *state, TargetXY *target) {
         unsigned id = target->GetId();
         pipeline.GetLoop()->OnceDrawReady([id] (RenderLoop *looper) {
-            GLResourceManager *rsrc = pipeline.GetResource();
+            std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
             Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
             Material *mat = rsrc->Get<Material>(IDS::MAT1);
             Material *tex = rsrc->Get<Material>(IDS::TEX1);
@@ -186,7 +186,7 @@ void task_thread_loop(void)
     target_set.OnTargetExit([] (State *state, TargetXY *target) {
         unsigned id = target->GetId();
         pipeline.GetLoop()->OnceDrawReady([id] (RenderLoop *looper) {
-            GLResourceManager *rsrc = pipeline.GetResource();
+            std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
             Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
             Material *mat = rsrc->Get<Material>(IDS::MAT1);
             mat->SetAlbedo(Colors::RED);
@@ -203,8 +203,8 @@ void task_thread_loop(void)
     state2->OnEntry([] (State* state) {
         std::cout << "Entering state 2!" << std::endl;
         pipeline.GetLoop()->OnceDrawReady([] (RenderLoop *looper) {
-            GLResourceManager *rsrc = pipeline.GetResource();
             looper->ClearQueue();
+            std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
             std::vector<Model*> elements = rsrc->GetByTag<Model>(IDS::RECT3);
             Material *mat = rsrc->Get<Material>(IDS::MAT1);
             Model *rect = rsrc->Get<Model>(IDS::MAIN_RECT);
@@ -229,7 +229,7 @@ void task_thread_loop(void)
         std::cout << "Entering state 3!" << std::endl;
         pipeline.GetLoop()->OnceDrawReady([] (RenderLoop *looper) {
             looper->ClearQueue();
-            GLResourceManager *rsrc = pipeline.GetResource();
+            std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
             std::vector<Model*> elements = rsrc->GetByTag<Model>(IDS::RECT3);
             Material *mat = rsrc->Get<Material>(IDS::MAT_ANON);
             mat->SetAlbedo(Colors::GREEN);
@@ -265,7 +265,7 @@ void gl_init(void)
     using namespace EXP;
     
     pipeline.Begin(0, 400, 400);
-    GLResourceManager *rsrc = pipeline.GetResource();
+    std::shared_ptr<GLResourceManager> &rsrc = pipeline.GetResource();
     RenderTarget *render_target = pipeline.GetTarget();
     
     Material *mat_anon = rsrc->Create<Material>();
@@ -279,23 +279,23 @@ void gl_init(void)
     Model *circle = rsrc->CreateSphere();
     
     //  globals
-    Shader *shader = new Shader2D();
+    Shader *shader = rsrc->Create<Shader2D>();
     keyboard = new InputKeyboard(pipeline.GetTarget());
-    mouse = new InputXY(pipeline.GetTarget());
+    mouse = std::make_shared<InputXY>(pipeline.GetTarget());
     
     rectangle->SetShader(shader);
     rectangle->SetUnits(Model::MIXED);
     rectangle->SetScale(50.0f);
     rectangle->SetMaterial(mat);
     rectangle->SetPosition(rect_pos);
-    bounds_rectangle = new BoundsRectangle(get_pixel_vertices(render_target, rectangle));
+    bounds_rectangle = std::make_shared<BoundsRectangle>(get_pixel_vertices(render_target, rectangle));
     target1 = new TargetXY(bounds_rectangle, mouse);
     
     rectangle2->MakeLike(rectangle);
     rectangle2->SetPosition(Positions2D::RIGHT_CENTER);
     rectangle2->SetMaterial(mat_tex);
     rectangle2->SetRotation(glm::vec3(0.0f, 0.0f, glm::radians(90.0f)));
-    bounds_rect2 = new BoundsRectangle(get_pixel_vertices(render_target, rectangle2));
+    bounds_rect2 = std::make_shared<BoundsRectangle>(get_pixel_vertices(render_target, rectangle2));
     target2 = new TargetXY(bounds_rect2, mouse);
     target2->SetId(1);
     
@@ -330,7 +330,7 @@ int test_states(void)
     time->Start();
     gl_init();
     std::thread t1(task_thread_loop);
-    RenderLoop *looper = pipeline.GetLoop();
+    std::shared_ptr<RenderLoop> &looper = pipeline.GetLoop();
     looper->OnLoop(render_loop);
     looper->Loop();
     t1.join();

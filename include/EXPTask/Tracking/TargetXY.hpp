@@ -19,18 +19,18 @@ namespace EXP {
     class TargetXY
     {
     public:
-        TargetXY(EXP::BoundsXY *in_bounds, const EXP::InputXY *in_input_source);
+        TargetXY(std::shared_ptr<BoundsXY> in_bounds, const std::shared_ptr<EXP::InputXY> in_input_source);
         ~TargetXY() = default;
         
         virtual bool InBounds(void) const;
-        virtual EXP::BoundsXY* GetBounds(void) const;
+        virtual std::shared_ptr<EXP::BoundsXY>& GetBounds(void);
         
         unsigned GetId(void) const;
         void SetId(unsigned id);
     protected:
         std::atomic<unsigned int> id;
-        EXP::BoundsXY *bounds;
-        const EXP::InputXY *input_source = nullptr;
+        std::shared_ptr<EXP::BoundsXY> bounds;
+        std::shared_ptr<EXP::InputXY> input_source;
     };
 }
 

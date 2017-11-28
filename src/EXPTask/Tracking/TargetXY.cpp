@@ -8,7 +8,7 @@
 
 #include <EXPTask/Tracking/TargetXY.hpp>
 
-EXP::TargetXY::TargetXY(EXP::BoundsXY *in_bounds, const EXP::InputXY *in_input_source)
+EXP::TargetXY::TargetXY(std::shared_ptr<EXP::BoundsXY> in_bounds, const std::shared_ptr<EXP::InputXY> in_input_source)
 {
     id.store(0);
     this->bounds = in_bounds;
@@ -20,7 +20,7 @@ bool EXP::TargetXY::InBounds() const
     return bounds->InBounds(input_source->GetCoordinates());
 }
 
-EXP::BoundsXY* EXP::TargetXY::GetBounds() const
+std::shared_ptr<EXP::BoundsXY>& EXP::TargetXY::GetBounds()
 {
     return bounds;
 }
