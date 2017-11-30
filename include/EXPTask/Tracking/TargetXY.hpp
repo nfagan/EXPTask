@@ -14,6 +14,7 @@
 #include <EXPTask/Tracking/BoundsXY.hpp>
 #include <atomic>
 #include <string>
+#include <memory>
 
 namespace EXP {
     class TargetXY

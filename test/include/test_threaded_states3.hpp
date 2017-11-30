@@ -13,6 +13,7 @@
 #include <EXPGL.hpp>
 #include <iostream>
 #include <thread>
+#include <memory>
 
 namespace EXP {
 namespace test_case {
