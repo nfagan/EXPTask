@@ -81,7 +81,7 @@ namespace EXP {
         //  key pressed
         //
         
-        key_pressed::key_pressed(EXP::InputKeyboard *keyboard, int abort_key) : general::general()
+        key_pressed::key_pressed(std::shared_ptr<EXP::InputKeyboard> keyboard, int abort_key) : general::general()
         {
             this->keyboard = keyboard;
             this->abort_key = abort_key;

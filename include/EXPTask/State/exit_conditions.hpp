@@ -13,6 +13,7 @@
 #include <string>
 #include <functional>
 #include <EXPTask/Time/Timer.hpp>
+#include <memory>
 #include <EXPGL/Input/InputKeyboard.hpp>
 
 namespace EXP {
@@ -99,10 +100,10 @@ namespace exit_conditions {
     class key_pressed : public general
     {
     public:
-        key_pressed(EXP::InputKeyboard *keyboard, int abort_key);
+        key_pressed(std::shared_ptr<EXP::InputKeyboard> keyboard, int abort_key);
         bool should_abort(EXP::StatePrimitive *state);
     private:
-        EXP::InputKeyboard *keyboard = nullptr;
+        std::shared_ptr<EXP::InputKeyboard> keyboard;
         int abort_key;
     };
 }

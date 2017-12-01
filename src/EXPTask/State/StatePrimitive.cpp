@@ -87,7 +87,7 @@ void EXP::StatePrimitive::ExitOnTimeExceeded()
     AddExitCondition<exit_conditions::time_exceeded>(GetTimer());
 }
 
-void EXP::StatePrimitive::ExitOnKeyPress(EXP::InputKeyboard *keyboard, int key)
+void EXP::StatePrimitive::ExitOnKeyPress(const std::shared_ptr<EXP::InputKeyboard> &keyboard, int key)
 {
     AddExitCondition<exit_conditions::key_pressed>(keyboard, key);
 }

@@ -13,6 +13,7 @@
 #include <functional>
 #include <vector>
 #include <atomic>
+#include <memory>
 #include <EXPGL/Input/InputKeyboard.hpp>
 #include <EXPTask/Time/Timer.hpp>
 #include <EXPTask/State/exit_conditions.hpp>
@@ -47,7 +48,7 @@ namespace EXP {
         
         virtual void ExitNow(void);
         virtual void ExitOnTimeExceeded(void);
-        virtual void ExitOnKeyPress(InputKeyboard *keyboard, int key);
+        virtual void ExitOnKeyPress(const std::shared_ptr<InputKeyboard> &keyboard, int key);
         
         virtual void SetTimeIn(EXP::Time::duration_s duration);
         void SetName(std::string name);
